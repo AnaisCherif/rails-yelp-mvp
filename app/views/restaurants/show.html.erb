@@ -1,0 +1,33 @@
+<div class="ps-5">
+<h1>Restaurant</h1>
+</div>
+
+<div class="px-5 py-3">
+<p><%= @restaurant.name %> - <%= @restaurant.category%></p>
+<p><%= @restaurant.address%></p>
+<p><%= @restaurant.phone_number%></p>
+</div>
+
+<div class="px-5 py-3">
+<h2>Reviews</h2>
+
+<% @restaurant.reviews.each do |review| %>
+  <li><%= review.content %> - <%= review.rating %></li>
+  <%end%>
+</div>
+
+<%# Embedded form review %>
+
+<div class="px-5 py-3">
+  <h2>Leave a comment !</h2>
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating, as: :select, prompt: 'Choose your rating', collection: (0..5).to_a %>
+  <%= f.submit "Add", class: "btn btn-primary" %>
+<% end %>
+</div>
+
+<div class="ps-5">
+<p><%= link_to "Back to list", restaurants_path %></p>
+</div>
